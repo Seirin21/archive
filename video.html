@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Video</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="">
+  
+</link>
+</head>
+<body>
+
+<style>
+#screen2{ background:var(--screen2-bg); }
+
+.video-box{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:1280px;
+  max-width:88vw;
+  aspect-ratio:1280/720;
+  background:#0a1c2c;
+  border:2px dashed #45607a;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.video-box video{
+  width:100%; height:100%;
+  object-fit:contain;
+  display:none;
+}
+.upload-label{
+  color:#9fb6c9;
+  font-size:16px;
+  text-align:center;
+  padding:20px;
+  cursor:pointer;
+}
+.upload-label input{ display:none; }
+
+.next-btn{
+  position:absolute;
+  bottom:5%;
+  right:4%;
+  width:10%;
+  min-width:90px;
+  padding:10px 6px;
+  font-size:10px;
+  font-family:'Poppins', sans-serif;
+  font-weight:600;
+  color:#fff;
+  background:var(--btn2-bg);
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition:background 0.25s ease;
+  white-space:nowrap;
+  text-decoration:none;
+  display:inline-block;
+  text-align:center;
+}
+.next-btn::after{
+  content:"";
+  margin-left:0;
+  opacity:0;
+  transition:opacity 0.25s ease, margin-left 0.25s ease;
+}
+.next-btn:hover{ background:var(--btn2-hover); }
+.next-btn:hover::after{
+  content:">>";
+  opacity:1;
+  margin-left:5px;
+}
+
+</style>
+
+<section id="screen2" class="screen">
+  <div class="video-box" id="videoBox">
+    <label class="upload-label" id="uploadLabel">
+      Click to upload a video
+      <input type="file" accept="video/*" id="videoInput">
+    </label>
+    <video id="videoPreview.mp4" controls></video>
+  </div>
+  <a class="next-btn" href="letter.html">Next</a>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
