@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 18th Birthday!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --screen1-bg:#AECCE4;
+    --screen2-bg:#123456;
+    --screen3-bg:#29465B;
+    --btn1-bg:#151B54;
+    --btn1-hover:#4961E1;
+    --btn2-bg:#566D7E;
+    --btn2-hover:#36454F;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0; height:100%;
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+  }
+
+  .screen{
+    position:fixed; inset:0;
+    display:none;
+    width:100%; height:100%;
+    overflow:hidden;
+  }
+  .screen.active{ display:block; }
+
+  /* ================= SCREEN 1 ================= */
+  #screen1{ background:var(--screen1-bg); }
+
+  .headline{
+    position:absolute;
+    top:8%;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'Bubblegum Sans', cursive;
+    font-size:55px;
+    color:var(--btn1-bg);
+    text-align:center;
+    width:90%;
+    z-index:20;
+    text-shadow: 2px 2px 0 rgba(255,255,255,0.6);
+  }
+
+  .gift-btn{
+    position:absolute;
+    bottom:6%;
+    left:50%;
+    transform:translateX(-50%);
+    width:50%;
+    padding:16px 10px;
+    font-size:16px;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    letter-spacing:0.5px;
+    color:#fff;
+    background:var(--btn1-bg);
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    z-index:20;
+    transition:background 0.25s ease;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .gift-btn::after{
+    content:"";
+    display:inline-block;
+    margin-left:6px;
+    opacity:0;
+    transition:opacity 0.25s ease, margin-left 0.25s ease;
+  }
+  .gift-btn:hover{ background:var(--btn1-hover); }
+  .gift-btn:hover::after{
+    content:">>";
+    opacity:1;
+    margin-left:8px;
+  }
+
+  /* ---- wiggle animation ---- */
+  @keyframes wiggle{
+    0%,100%{ transform:rotate(-4deg); }
+    50%{ transform:rotate(4deg); }
+  }
+  .wiggle{ animation:wiggle 3.2s ease-in-out infinite; transform-origin:50% 90%; }
+  .wiggle-slow{ animation:wiggle 4.2s ease-in-out infinite; transform-origin:50% 90%; }
+
+  /* ---- cinnamoroll-style pup, centered, largest ---- */
+  .pup{
+    position:absolute;
+    top:22%;
+    left:38%;
+    transform:translateX(-50%);
+    width:320px;
+    z-index:15;
+    animation:wiggle 3.6s ease-in-out infinite;
+    transform-origin:50% 90%;
+  }
+
+  /* ---- decorative critters scattered around ---- */
+  .critter{ position:absolute; z-index:10; }
+
+  /* ---- confetti ---- */
+  .confetti-piece{
+    position:absolute;
+    top:-5%;
+    width:10px; height:14px;
+    opacity:0.9;
+    animation-name:fall;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+  }
+  @keyframes fall{
+    0%{ transform:translateY(0) rotate(0deg); }
+    100%{ transform:translateY(115vh) rotate(360deg); }
+  }
+
+  /* ================= SCREEN 2 ================= */
+  #screen2{ background:var(--screen2-bg); }
+ 
+  .video-box{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:1280px;
+    max-width:88vw;
+    aspect-ratio:1280/720;
+    background:#0a1c2c;
+    border:2px dashed #45607a;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .video-box video{
+    width:100%; height:100%;
+    object-fit:contain;
+    display:block;
+  }
+ 
+  .next-btn{
+    position:absolute;
+    bottom:5%;
+    right:4%;
+    width:10%;
+    min-width:90px;
+    padding:10px 6px;
+    font-size:10px;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    color:#fff;
+    background:var(--btn2-bg);
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:background 0.25s ease;
+    white-space:nowrap;
+  }
+  .next-btn::after{
+    content:"";
+    margin-left:0;
+    opacity:0;
+    transition:opacity 0.25s ease, margin-left 0.25s ease;
+  }
+  .next-btn:hover{ background:var(--btn2-hover); }
+  .next-btn:hover::after{
+    content:">>";
+    opacity:1;
+    margin-left:5px;
+  }
+
+/* ================= SCREEN 3 ================= */
+#screen3{ background:var(--screen3-bg); }
+
+.message-box{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:75%;
+  max-width:700px;
+  height:75%;
+  padding:24px;
+  font-size:16px;
+  font-family:'Poppins', sans-serif;
+  color:#1c2b36;
+  background:#f4f8fb;
+  border:none;
+  border-radius:10px;
+  resize:none;
+  outline:none;
+  overflow-y:auto;
+  line-height:1.5;
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN 1 ============ -->
+<section id="screen1" class="screen active">
+  <div class="headline">Happy 18th Birthday!</div>
+
+  <div id="confetti-layer"></div>
+
+  <!-- three-tier cake -->
+  <svg class="critter wiggle-slow" style="top:62%; left:8%; width:100px;" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="110" width="60" height="35" rx="6" fill="#2E5C8A" stroke="#12314D" stroke-width="3"/>
+    <rect x="20" y="95" width="80" height="18" rx="4" fill="#5B87B5" stroke="#12314D" stroke-width="3"/>
+    <rect x="38" y="65" width="44" height="32" rx="6" fill="#6FA3D6" stroke="#12314D" stroke-width="3"/>
+    <rect x="30" y="50" width="60" height="18" rx="4" fill="#5B87B5" stroke="#12314D" stroke-width="3"/>
+    <rect x="45" y="20" width="30" height="32" rx="6" fill="#AECCE4" stroke="#12314D" stroke-width="3"/>
+    <rect x="40" y="8" width="40" height="14" rx="4" fill="#5B87B5" stroke="#12314D" stroke-width="3"/>
+    <rect x="57" y="0" width="6" height="12" fill="#2E5C8A"/>
+    <ellipse cx="60" cy="0" rx="4" ry="4" fill="#FFE27A"/>
+  </svg>
+
+  <!-- whale sharks -->
+  <svg class="critter wiggle" style="top:10%; left:5%; width:100px;" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 50 Q15 18 65 18 Q120 18 132 45 Q120 72 65 72 Q15 72 10 50 Z" fill="#2E6DA4" stroke="#123456" stroke-width="4"/>
+    <path d="M118 30 L138 20 L138 45 Z" fill="#2E6DA4" stroke="#123456" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M60 18 L72 2 L80 20 Z" fill="#2E6DA4" stroke="#123456" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M20 55 Q35 70 55 68" fill="none" stroke="#123456" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="60" cy="20" rx="35" ry="20" fill="#5B93C4" opacity="0.5"/>
+    <circle cx="30" cy="42" r="4" fill="#FFFFFF"/>
+    <circle cx="42" cy="34" r="3" fill="#FFFFFF"/>
+    <circle cx="52" cy="46" r="3.5" fill="#FFFFFF"/>
+    <circle cx="65" cy="30" r="3" fill="#FFFFFF"/>
+    <circle cx="24" cy="55" r="4" fill="#0d1f30"/>
+    <path d="M14 58 Q22 65 32 60" fill="none" stroke="#0d1f30" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="critter wiggle-slow" style="top:32%; right:6%; width:130px;" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 50 Q15 18 65 18 Q120 18 132 45 Q120 72 65 72 Q15 72 10 50 Z" fill="#1B4E7D" stroke="#0d2a45" stroke-width="4"/>
+    <path d="M118 30 L138 20 L138 45 Z" fill="#1B4E7D" stroke="#0d2a45" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M60 18 L72 2 L80 20 Z" fill="#1B4E7D" stroke="#0d2a45" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M20 55 Q35 70 55 68" fill="none" stroke="#0d2a45" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="60" cy="20" rx="35" ry="20" fill="#3E76AD" opacity="0.5"/>
+    <circle cx="30" cy="42" r="4" fill="#FFFFFF"/>
+    <circle cx="42" cy="34" r="3" fill="#FFFFFF"/>
+    <circle cx="52" cy="46" r="3.5" fill="#FFFFFF"/>
+    <circle cx="65" cy="30" r="3" fill="#FFFFFF"/>
+    <circle cx="24" cy="55" r="4" fill="#0d1f30"/>
+    <path d="M14 58 Q22 65 32 60" fill="none" stroke="#0d1f30" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="critter wiggle" style="bottom:8%; right:16%; width:75px;" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 50 Q15 18 65 18 Q120 18 132 45 Q120 72 65 72 Q15 72 10 50 Z" fill="#7FB2DE" stroke="#123456" stroke-width="4"/>
+    <path d="M118 30 L138 20 L138 45 Z" fill="#7FB2DE" stroke="#123456" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M60 18 L72 2 L80 20 Z" fill="#7FB2DE" stroke="#123456" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M20 55 Q35 70 55 68" fill="none" stroke="#123456" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="30" cy="42" r="4" fill="#FFFFFF"/>
+    <circle cx="52" cy="46" r="3.5" fill="#FFFFFF"/>
+    <circle cx="24" cy="55" r="4" fill="#0d1f30"/>
+    <path d="M14 58 Q22 65 32 60" fill="none" stroke="#0d1f30" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <!-- manatee-style sea friend -->
+  <svg class="critter wiggle-slow" style="top:6%; right:22%; width:95px;" viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 55 Q10 20 60 18 Q110 16 128 45 Q120 60 100 60 Q95 78 65 80 Q30 82 15 65 Q6 62 8 55 Z" fill="#9FADAE" stroke="#4B5556" stroke-width="4"/>
+    <ellipse cx="35" cy="45" rx="12" ry="9" fill="#B7C2C3"/>
+    <circle cx="26" cy="46" r="3.5" fill="#0d1f30"/>
+    <path d="M18 55 Q26 60 34 55" fill="none" stroke="#0d1f30" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="95" cy="58" rx="16" ry="8" fill="#9FADAE" stroke="#4B5556" stroke-width="4"/>
+  </svg>
+
+  <!-- otters -->
+  <svg class="critter wiggle" style="bottom:5%; left:20%; width:120px;" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="70" cy="60" rx="55" ry="26" fill="#8C6239" stroke="#4a2f14" stroke-width="4"/>
+    <ellipse cx="70" cy="52" rx="50" ry="18" fill="#C9A06A"/>
+    <circle cx="25" cy="45" r="20" fill="#8C6239" stroke="#4a2f14" stroke-width="4"/>
+    <ellipse cx="22" cy="50" rx="9" ry="7" fill="#E8D3AF"/>
+    <circle cx="17" cy="40" r="2.5" fill="#0d1f30"/>
+    <circle cx="30" cy="38" r="2.5" fill="#0d1f30"/>
+    <circle cx="10" cy="28" r="6" fill="#6E4A28" stroke="#4a2f14" stroke-width="3"/>
+    <circle cx="34" cy="24" r="6" fill="#6E4A28" stroke="#4a2f14" stroke-width="3"/>
+    <ellipse cx="60" cy="58" rx="8" ry="6" fill="#C9A06A"/>
+    <ellipse cx="80" cy="58" rx="8" ry="6" fill="#C9A06A"/>
+  </svg>
+
+  <svg class="critter wiggle-slow" style="top:48%; left:2%; width:65px;" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="70" cy="60" rx="55" ry="26" fill="#6E4A28" stroke="#3a2510" stroke-width="4"/>
+    <ellipse cx="70" cy="52" rx="50" ry="18" fill="#A9764B"/>
+    <circle cx="25" cy="45" r="20" fill="#6E4A28" stroke="#3a2510" stroke-width="4"/>
+    <ellipse cx="22" cy="50" rx="9" ry="7" fill="#E8D3AF"/>
+    <circle cx="17" cy="40" r="2.5" fill="#0d1f30"/>
+    <circle cx="30" cy="38" r="2.5" fill="#0d1f30"/>
+    <circle cx="10" cy="28" r="6" fill="#4a2f14"/>
+    <circle cx="34" cy="24" r="6" fill="#4a2f14"/>
+  </svg>
+
+  <!-- fluffy pup with confetti gun, center, largest -->
+  <svg class="pup" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+    <!-- ears -->
+    <path d="M60 60 C20 40 15 90 45 100 C55 95 60 75 60 60 Z" fill="#EAF4FC" stroke="#BFD9EE" stroke-width="2"/>
+    <path d="M140 60 C180 40 185 90 155 100 C145 95 140 75 140 60 Z" fill="#EAF4FC" stroke="#BFD9EE" stroke-width="2"/>
+    <path d="M48 62 C35 58 33 78 46 86" fill="none" stroke="#AECCE4" stroke-width="5" stroke-linecap="round"/>
+    <path d="M152 62 C165 58 167 78 154 86" fill="none" stroke="#AECCE4" stroke-width="5" stroke-linecap="round"/>
+    <!-- body -->
+    <ellipse cx="100" cy="150" rx="70" ry="60" fill="#FDFEFF" stroke="#DCEBF6" stroke-width="2"/>
+    <!-- head -->
+    <circle cx="100" cy="95" r="55" fill="#FFFFFF" stroke="#DCEBF6" stroke-width="2"/>
+    <!-- cheeks -->
+    <ellipse cx="72" cy="105" rx="9" ry="6" fill="#FFD3DE"/>
+    <ellipse cx="128" cy="105" rx="9" ry="6" fill="#FFD3DE"/>
+    <!-- eyes -->
+    <circle cx="85" cy="92" r="4" fill="#2b2b2b"/>
+    <circle cx="115" cy="92" r="4" fill="#2b2b2b"/>
+    <!-- mouth -->
+    <path d="M90 108 Q100 116 110 108" fill="none" stroke="#c98fa0" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- arm holding confetti gun -->
+    <ellipse cx="150" cy="150" rx="14" ry="22" fill="#FFFFFF" stroke="#DCEBF6" stroke-width="2" transform="rotate(-25 150 150)"/>
+    <!-- confetti gun -->
+    <rect x="155" y="105" width="34" height="14" rx="4" fill="#4961E1" transform="rotate(-25 172 112)"/>
+    <rect x="185" y="98" width="10" height="26" rx="3" fill="#151B54" transform="rotate(-25 190 111)"/>
+    <!-- confetti burst from gun -->
+    <circle cx="205" cy="80" r="3" fill="#FF8FA3"/>
+    <circle cx="212" cy="95" r="2.5" fill="#FFD166"/>
+    <circle cx="198" cy="65" r="2.5" fill="#8FE3CF"/>
+    <circle cx="218" cy="70" r="2" fill="#4961E1"/>
+    <circle cx="208" cy="55" r="2" fill="#FF8FA3"/>
+  </svg>
+
+  <button class="gift-btn" onclick="goTo(2)">CLICK YOUR BIRTHDAY GIFT!</button>
+</section>
+
+<!-- ============ SCREEN 2 ============ -->
+<section id="screen2" class="screen">
+  <div class="video-box" id="videoBox">
+    <video id="videoPreview" src="video.mp4" controls></video>
+  </div>
+  <button class="next-btn" onclick="goTo(3)">Next</button>
+</section>
+
+<!-- ============ SCREEN 3 ============ -->
+<section id="screen3" class="screen">
+  <label class="message-box" 
+  >
+  HAPPY 18TH BIRTHDAY, BABY KOOOOOO ヽ(≧∀≦)ﾉ woweeee you're finally 18 na halaaaaaa, pwede ka na makulong kaya mag-behave ka na po HAHAHAHAHAHA. Hehe I hope I made you smile todayyyyy. I rushed this gift sayo yesterday, like as in yesterday morning lang, so sorry if it doesn't look that good. I also have some gifts pa for you na ibibigay ko sa saturday po. 
+
+
+
+You know, baby, now that you're 18 naaaaa, I hope you finally start focusing on yourself more. Lovey ko, I wanna see you succeed in life. I wanna see you achieve the things that you want, the things that you need. Put yourself first, please. Never ever neglect your health. Rest if you're tired, baby, what you're doing can wait, you'd eventually finish it, pero kapag dinisregard mo yung signs ng body mo, you'll just end up not finishing them po. 
+
+
+
+I hope to see you smile more, especially on your birthdays. I wanna make your birthdays special. Like, I want your birthday to be something that you would want to look forward to. And today, I hope this simple gift will lift your mood even just a little, mahal ko. I made a video, although I don't know how to edit one, because you mentioned that no one has ever done that before sa'yo. I don't know if you'd count this one, but I want to be the first, and I want to do things that will make you feel special. 
+
+
+
+Baby, mahal na mahal na mahal kita po — sobra. I love you so much po. I love you more than everything else. Please take good care of yourself po, okay? I want you to eat well, sleep well, rest well, and be physically, mentally, and emotionally well. There might be times na magr-risk ka po or mags-sacrifice ng time for yourself like meals and sleep because of school works, understandable naman kasi we're college na tapos 1st year pa, but make sure you rest po after, okay? We're not always together, kahit na gustong-gusto ko na lagi tayong magkasama, pero ang layo kasi talaga natin ngayon sa isa't isa.
+
+
+ 
+
+I wanna take care of you, baby ko. Love na love na love po kita so much ₍ᐢ..ᐢ₎♡ I hope we spend more time together in the future and be there for each other. I know you're having a hard time, baby, kahit hindi ka masyado nagr-rant sa'kin, I know. But also, just know that I'm so proud of you. I'm the proudest talaga. I may not know exactly how hard your struggles are, but I know they're hard and you're facing it, and now you've come this far. My baby is so galing talaga. You're the most admirable person I know and will ever know, baby. Let's also not forget that I'm your #1 fan hehe ໒꒰ྀི∩˃ ᵕ ˂∩꒱ྀི১</label>
+</section>
+
+<script>
+  function goTo(n){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + n).classList.add('active');
+  }
+
+  const colors = ['#FF8FA3','#FFD166','#8FE3CF','#4961E1','#AECCE4','#FFFFFF'];
+  const layer = document.getElementById('confetti-layer');
+  for(let i=0;i<45;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.left = Math.random()*100 + '%';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration = (4 + Math.random()*5) + 's';
+    c.style.animationDelay = (Math.random()*6) + 's';
+    c.style.width = (6 + Math.random()*6) + 'px';
+    c.style.height = (10 + Math.random()*8) + 'px';
+    layer.appendChild(c);
+  }
+
+  const videoInput = document.getElementById('videoInput');
+  const videoPreview = document.getElementById('videoPreview');
+  const uploadLabel = document.getElementById('uploadLabel');
+  videoInput.addEventListener('change', function(e){
+    const file = e.target.files[0];
+    if(file){
+      const url = URL.createObjectURL(file);
+      videoPreview.src = url;
+      videoPreview.style.display = 'block';
+      uploadLabel.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
